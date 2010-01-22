@@ -1,0 +1,113 @@
+{% comment %}
+# Copyright (c) 2008 Yahoo! Inc. All rights reserved.
+# Licensed under the Yahoo! Search BOSS Terms of Use
+# (http://info.yahoo.com/legal/us/yahoo/search/bosstos/bosstos-2317.html)
+{% endcomment %}
+{% extends "base.html" %}
+{% block title %}
+    <title>{{ query }} - 4hoursearch</title>
+{% endblock %}
+{% block head %}
+    <style type="text/css">
+        #logo {
+            float: right;
+        }
+		#smalltext {
+			font-size: smaller;
+		}
+		#smalltext a:link { text-decoration: none; color: #BBBBBB;}
+		#smalltext a:visited { text-decoration: none; color: #BBBBBB;}
+		#smalltext a:hover { text-decoration: none; color: #BBBBBB;}
+		#smalltext a:active { text-decoration: none; color: #BBBBBB;}
+    </style>
+{% endblock %}
+{% block body %}
+<div id="doc3" class="yui-t7">
+    <div id="hd">
+        <form id="searchform" action="search">
+            <div id="myAutoComplete">
+                <input type="text" id="myInput" name="q" value="{{ query|escape }}">
+
+                <div id="myContainer"></div>
+            </div>
+            <input type="button" id="searchbutton">
+        </form>
+        <a href="/"><img id="logo" src="images/4hoursearch_logo.png" alt="4hoursearch"/></a>
+        <div class="clear"></div>
+    </div>
+    <div id="bd">
+        <div class="yui-g">
+            <div class="tabs">
+                 <a href="search?q={{ query}}"><div class="tab{% if not category %} sel{% endif %}">All Results</div></a>
+                {% if categories %}
+                {% for c in categories %}
+                <a href="search?q={{ query}}&m={{ c.query }}"><div class="tab{% ifequal c.query category %} sel{% endifequal %}">{{ c.title }}</div></a>
+                {% endfor %}
+                {% endif %}
+	            <div id="totalhits" class="tab">{{ totalhits }} results</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="yui-gb">
+            <div class="yui-u first">
+                {% for r in results %}
+                <div class="result"><h2 class="t"><a href="{{ r.url }}">{{ r.title }}</a></h2>
+                    {% ifequal forloop.counter 1 %}{% if image %}<div class="resultimage"><a
+                                         href="{{ image.refererclickurl }}"><img
+                        src="{{ image.thumbnail_url }}" title="{{ image.abstract }}"/></a><br>
+<span id="smalltext"><a href="{{image.refererclickurl}}" title="{{image.refererurl}}">{{ image.title }}</a></span></div>
+{% endif %}{% endifequal %}
+
+                    <p>{{ r.abstract }}</p><a class="url"
+                                              href="{{ r.url }}"
+                                              title="{{ r.url }}">{{ r.dispurl }}</a>
+
+                    <div class="clear"></div>
+                </div>
+                {% ifequal forloop.counter 4 %}
+            </div>
+            <div class="yui-u">
+                {% endifequal %}
+                {% ifequal forloop.counter 8 %}
+            </div>
+            <div class="yui-u">
+                <div class="result">
+                    <script type="text/javascript">
+                        <!--
+                        ctxt_ad_partner = "1733870999";
+                        ctxt_ad_section = "";
+                        ctxt_ad_bg = "";
+                        ctxt_ad_width = 300;
+                        ctxt_ad_height = 250;
+                        ctxt_ad_bc = "dcd8cc";
+                        ctxt_ad_cc = "e6e1d7";
+                        ctxt_ad_lc = "b6346e";
+                        ctxt_ad_tc = "4e4d4d";
+                        ctxt_ad_uc = "bf8697";
+                        // -->
+                    </script>
+                    <script src="http://ypn-js.overture.com/partner/js/ypn.js">
+                    </script>
+                    <div class="clear"></div>
+                </div>
+                {% endifequal %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="yui-g">
+            <div class="tabs">
+                <a href="{% if start %}search?q={{query}}&p={{ prev }}{% endif %}"><div class="tab">&lt; Prev</div></a>
+                <a href="search?q={{query}}"><div class="tab{% if not start%} sel{% endif %}">1</div></a>
+                <a href="search?q={{query}}&p=10"><div class="tab{% ifequal start '10' %} sel{% endifequal %}">2</div></a>
+                <a href="search?q={{query}}&p=20"><div class="tab{% ifequal start '20' %} sel{% endifequal %}">3</div></a>
+                <a href="search?q={{query}}&p=30"><div class="tab{% ifequal start '30' %} sel{% endifequal %}">4</div></a>
+                <a href="search?q={{query}}&p=40"><div class="tab{% ifequal start '40' %} sel{% endifequal %}">5</div></a>
+                <a href="search?q={{query}}&p=50"><div class="tab{% ifequal start '50' %} sel{% endifequal %}">6</div></a>
+                <a href="search?q={{query}}&p=60"><div class="tab{% ifequal start '60' %} sel{% endifequal %}">7</div></a>
+                <a href="search?q={{ query }}&p={{ next }}"><div class="tab">Next &gt;</div></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- {{ stats }} -->
+{% endblock %}

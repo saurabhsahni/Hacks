@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>yboss demo</title>
+</head>
+<body>
+  <h1>This is a very ugly demo showing the use of yboss</h1>
+  <div id="pics"> </div>
+  <script type="text/javascript" src="yboss-lib.js">
+  </script>
+  <script type="text/javascript">
+  YBOSS.get(
+    {
+      searches:'news,images,search',
+      query:'obama -palin',
+      count:10,
+      start:5,
+      callback:received
+    }
+  );
+  function received(o){
+     document.getElementById('pics').innerHTML = '<h2>Images</h2>'+ o.imagesHTML;
+     document.getElementById('pics').innerHTML += '<h2>News</h2>'+o.newsHTML;
+     document.getElementById('pics').innerHTML += '<h2>Web</h2>'+o.webHTML;
+  }
+  </script>
+</body>
+</html>

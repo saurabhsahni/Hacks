@@ -1,0 +1,52 @@
+{% comment %}
+# Copyright (c) 2008 Yahoo! Inc. All rights reserved.
+# Licensed under the Yahoo! Search BOSS Terms of Use
+# (http://info.yahoo.com/legal/us/yahoo/search/bosstos/bosstos-2317.html)
+{% endcomment %}
+{% extends "base.html" %}
+{% block head %}
+	<style type="text/css">
+	    #hd {
+	        height: 40%;
+	    }
+	    #tagline {
+	        clear: both; /* slind: removed bold */
+	        padding-top: 10px;
+			line-height: 1.4em; /* slind: bumped up line height */
+	    }
+		#download {
+			font-weight: 100;
+			color: #DDDDDD;
+	        text-decoration: none;
+	    }
+	    #download a:link {text-decoration: none; color: #0089BD} /* slind: changed link color */
+	    #download a:visited {text-decoration: none; color: #1B617A}
+	    #download a:hover {text-decoration: underline; color: #0089BD}
+	    #download a:active {color: #1B617A}
+	</style>
+{% endblock %}
+{% block body %}
+<form id="searchform" action="search">
+    <div id="doc3" class="yui-t7">
+        <div id="hd"></div>
+        <div id="bd">
+            <div class="yui-gf">
+                <div class="yui-u first">
+                    <!-- YOUR DATA GOES HERE -->
+                </div>
+                <div class="yui-u">
+                    <img id="logo" src="images/4hoursearch_logo_big.png" alt="4hoursearch"/><br>
+                    <div id="myAutoComplete">
+                        <input type="text" id="myInput" name="q">
+                        <div id="myContainer"></div>
+                    </div>
+                    <input type="button" id="searchbutton">
+                    <div id="tagline">Searching enough web pages<br><span id="download"><a href="src/4hoursearch-src.zip">Download 4hoursearch</a></span><br><a href="http://www.javarants.com/2008/08/01/yuil-is-dead-4hoursearch-is-now-online/">Read about it.</a></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="ft"></div>
+    </div>
+</form>
+{% endblock %}

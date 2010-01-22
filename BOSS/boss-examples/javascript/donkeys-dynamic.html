@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Donkeys on the web!</title>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+   <style type="text/css">
+      html,body{
+       background:#000;color:#ccc;
+      }
+      h1{
+        font-family:Futura,Helvetica,Arial,Sans-Serif;
+        font-size:300%;
+        padding:.5em 0;
+        color:#393;
+      }
+      h2{
+        font-family:Futura,Helvetica,Arial,Sans-Serif;
+        font-size:120%;
+        padding:.5em;
+        color:#fff;
+        background:#030;
+        border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+      }
+      form{
+        margin:1em 0;
+        padding:1em;
+        color:#fff;
+        background:#393;
+        border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+      }
+      #searchlink a{
+        font-size:200%;
+        color:#fff;
+      }
+      #bd{
+        font-size:115%;
+      }
+      #searchlink{
+        padding-bottom:2em;
+      }
+      form div{
+        padding:5px 0;font-weight:bold;
+      }
+      #ft a{
+        color:#fff;
+      }
+      #webresults li, #images li,#news li{
+        padding:.5em 0;
+      }
+      img{
+        padding:.5em;
+        margin:10px auto;
+        display:block;
+      }
+      li p{
+        color:#666;
+        font-size:80%;
+      }
+      #images li{
+        position:relative;
+        overflow:auto;
+      }
+      #searchlink li a{
+        display:block;
+        padding-bottom:.2em;
+        font-size:115%;
+        color:#3c3;
+      }
+      ul{overflow:hidden;}
+   </style>
+   <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0pr1/build/yui/yui-min.js"></script>
+</head>
+<body>
+<div id="doc2">
+   <div id="hd"><h1>Show me the donkeys!</h1></div>
+   <div id="bd">
+    <div id="searchlink">
+      <form id="searchform" action="http://search.yahoo.com/search">
+        <label for="va">Search for</label>
+        <input type="text" id="va" name="va">
+        <input type="submit" value="make it so!">
+      </form>
+    </div>
+  </div>
+   <div id="ft"><p>Written by <a href="http://wait-till-i.com">Chris Heilmann</a>, powered by <a href="http://developer.yahoo.com/search/boss/">BOSS</a> and <a href="http://developer.yahoo.com/yui/3">YUI3</a>.</p><p>This is not an official Yahoo! site and not endorsed by the company.</p></div>
+</div>
+<script type="text/javascript">
+  var donkeysearch = function(){
+    YUI({combine: true,timeout: 10000}).use('node','get','dom','event',
+    function(Y){
+      donkeysearch.Y = Y;
+      // MINE MINE MINE, GET YOUR OWN!
+      var appID = '4muP0fTV34EwDebJKZAXcJ8rM' + 
+                  '.HrcyjGnNiihCuezlmEa_aNBJv.vcXaln98qow-'; 
+      Y.get('#searchform').on('submit',function(e){
+        var s = document.getElementById('va').value;
+        var container =  Y.get('#searchlink');
+        var APIurl = 'http://boss.yahooapis.com/ysearch/web/v1/'+ s  +
+                     '?format=json&callback=donkeysearch.seed&' +
+                     'count=10&appid=' + appID;
+        if(typeof grid === 'undefined'){
+          var grid = Y.Node.create('<div id="results" class="yui-gb"></div>');
+          container.appendChild(grid);
+          grid.appendChild(
+            Y.Node.create(
+              '<div id="webresults" class="yui-u first">' + 
+              '<h2>Web Search</h2></div>'
+            )
+          );
+          grid.appendChild(
+            Y.Node.create('<div id="images" class="yui-u">' + 
+                          '<h2>Images</h2></div>')
+          );
+          grid.appendChild(
+            Y.Node.create('<div id="news" class="yui-u"><h2>News</h2></div>')
+          );
+        }
+        Y.Get.script(
+          [
+            APIurl,
+            APIurl.replace('web','images'),
+            APIurl.replace('web','news')
+          ], 
+          {
+            onSuccess:function(o){o.purge();},
+            onFailure:function(o){},
+            onTimeout:function(o){},
+            timeout:10000, 
+            context:Y, 
+            autopurge:true 
+          }
+        );
+        e.preventDefault();
+    });
+  });
+  return {
+    seed:function(o){
+      if(typeof o.ysearchresponse.resultset_web !== 'undefined'){
+        var out = '<ul>';
+        var arr = o.ysearchresponse.resultset_web;
+        var end = o.ysearchresponse.resultset_web.length;
+        for(var i=0;i<end;i++){
+          out += '<li><a href="' + arr[i].clickurl + 
+                 '">'+arr[i].title+'</a>'+arr[i].abstract+'</li>'
+        }
+        out += '</ul>';
+        donkeysearch.Y.get('#webresults').set('innerHTML',
+        '<h2>Web Search</h2>');
+        donkeysearch.Y.get('#webresults').appendChild(
+          donkeysearch.Y.Node.create(out)
+        );
+      }
+      if(typeof o.ysearchresponse.resultset_images !== 'undefined'){
+        var out = '<ul>';
+        var arr = o.ysearchresponse.resultset_images;
+        var end = o.ysearchresponse.resultset_images.length;
+        for(var i=0;i<end;i++){
+          out += '<li><a href="' + arr[i].clickurl + 
+                 '">'+arr[i].title+'</a><a href="' + arr[i].clickurl + 
+                 '"><img src="' + arr[i].thumbnail_url + 
+                 '"></a><p>' + 
+                 arr[i].refererurl.replace('http://www.','').substring(0,40) + 
+                 '&hellip;</p></li>';
+        }
+        out += '</ul>';
+        donkeysearch.Y.get('#images').set('innerHTML','<h2>Images</h2>');
+        donkeysearch.Y.get('#images').appendChild(
+          donkeysearch.Y.Node.create(out)
+        );
+      }
+      if(typeof o.ysearchresponse.resultset_news !== 'undefined'){
+        var out = '<ul>';
+        var arr = o.ysearchresponse.resultset_news;
+        var end = o.ysearchresponse.resultset_news.length;
+        for(var i=0;i<end;i++){
+          out += '<li><a href="' + arr[i].clickurl + '">' + 
+                 arr[i].title+'</a> ('+arr[i].source+')</li>';
+        }
+        out += '</ul>';
+        donkeysearch.Y.get('#news').set('innerHTML','<h2>News</h2>');
+        donkeysearch.Y.get('#news').appendChild(
+          donkeysearch.Y.Node.create(out)
+        );
+      }
+    }
+  }
+}();
+</script>
+</body>
+</html>

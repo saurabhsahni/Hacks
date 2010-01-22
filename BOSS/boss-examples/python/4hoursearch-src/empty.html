@@ -1,0 +1,34 @@
+{% comment %}
+# Copyright (c) 2008 Yahoo! Inc. All rights reserved.
+# Licensed under the Yahoo! Search BOSS Terms of Use
+# (http://info.yahoo.com/legal/us/yahoo/search/bosstos/bosstos-2317.html)
+{% endcomment %}
+{% extends "base.html" %}
+{% block title %}
+    <title>{{ query }} - 4hoursearch</title>
+{% endblock %}
+{% block head %}
+    <style type="text/css">
+        #logo {
+            float: right;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+<div id="doc3" class="yui-t7">
+    <div id="hd">
+        <form id="searchform" action="search">
+            <div id="myAutoComplete">
+                <input type="text" id="myInput" name="q" value="{{ query|escape }}">
+
+                <div id="myContainer"></div>
+            </div>
+            <input type="button" id="searchbutton">
+        </form>
+        <a href="/"><img id="logo" src="images/4hoursearch_logo.png" alt="4hoursearch"/></a>
+
+        <div class="clear"></div>
+    </div>
+</div>
+<!-- {{ stats }} -->        
+{% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Unsafe Search - give us what was filtered</title>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+   <style type="text/css">
+   html,body{background:#000;color:#ccc;}
+h1{font-family:Futura,Helvetica,Arial,Sans-Serif;font-size:300%;padding:.5em 0;color:#393;}
+h2{font-family:Futura,Helvetica,Arial,Sans-Serif;font-size:120%;padding:.5em;color:#fff;background:#030;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}form{margin:1em 0;padding:1em;color:#fff;background:#393;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}#results a{color:#693;}#bd{font-size:115%;}
+   form div{padding:5px 0;font-weight:bold;}#results ul{overflow:hidden;margin-top:1em;}#results li{padding-bottom:.5em;}#results li a{font-weight:bold;display:block;margin-bottom:.5em;}.off,.hidden{position:absolute;left:-5000px;}#ft{font-size:90%;margin:2em 0;text-align:center;}#ft a{color:#fff;}.first{position:relative;left:0;}   </style>
+   <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0pr1/build/yui/yui-min.js"></script>
+</head>
+<body>
+<div id="doc" class="yui-t7">
+   <div id="hd"><h1>Show me the donkeys!</h1></div>
+   <div id="bd">
+     <div class="yui-g">
+        <form action="search.php" id="f">
+          <div>
+            <label for="s">Search for</label>
+            <input type="text" id="search" name="search">
+            <input type="submit" value="Search!">
+          </div>
+          <div>
+          <input type="checkbox" id="o" checked="checked" name="o">
+          <label for="o">Show safe and normal results</label>
+          </div>
+        </form>
+      </div>
+  </div>
+   <div id="ft"><p>Written by <a href="http://wait-till-i.com">Chris Heilmann</a>, original idea by <a href="http://www.workingwith.me.uk/">Neil Crosby</a>, powered by <a href="http://developer.yahoo.com/search/boss/">BOSS</a> and <a href="http://developer.yahoo.com/yui/3">YUI3</a>.</p><p>This is not an official Yahoo! site and not endorsed by the company.</p></div>
+</div>
+<script>
+  YUI({combine: true, timeout: 10000}).use('node','dom','event',
+  function(Y) {
+    Y.get('#results').addClass('hidden');
+    Y.get('#f').on('submit',function(e){
+      Y.get('#results').removeClass('hidden');
+      var appID = '4muP0fTV34EwDebJKZAXcJ8rM' + 
+                  '.HrcyjGnNiihCuezlmEa_aNBJv.vcXaln98qow-'; 
+      var s = document.getElementById('search').value;
+      var APIurl = 'http://boss.yahooapis.com/ysearch/web/v1/' + s +
+                   '?format=json&count=50&appid=' + appID + '&';
+      load(APIurl + 'callback=unsafeSearch.normal');
+      load(APIurl + 'filter=-porn-hate&callback=unsafeSearch.safe');
+      e.preventDefault();
+    });
+    Y.get('#o').on('click',function(){
+      var res = Y.get('#results');
+      if(res.hasClass('yui-gb')){
+        res.replaceClass('yui-gb','yui-g');
+        var nodes = Y.all('#results div');
+        nodes.addClass('off');
+        nodes.removeClass('yui-u');
+      } else {
+        res.replaceClass('yui-g','yui-gb');
+        var nodes = Y.all('#results div');
+        nodes.addClass('yui-u');
+        nodes.removeClass('off');
+      }
+    });
+    function load(url){
+      var s = document.createElement('script');
+      s.setAttribute('type','text/javascript');
+      s.setAttribute('src',url);
+      document.getElementsByTagName('head')[0].appendChild(s);
+    }
+  });
+  var unsafeSearch = function(){
+    var done = {normal:null,safe:null};
+    function normal(o){
+      done.normal = o;
+      seed();
+    }
+    function safe(o){
+      done.safe = o;
+      seed();
+    }
+    function seed(o){
+      if(done.normal !== null && done.safe !== null){
+        var safe = {};
+        var results = done.normal.ysearchresponse.resultset_web;
+        var out = '<ul>';
+        for(var i=0;i<results.length;i++){
+          var cur = results[i];
+          out += '<li><a href="' + cur.clickurl +'">' +
+                 cur.title + '</a><p>' + cur.abstract + 
+                 '</p><p>(' + cur.dispurl + ')</p></li>';
+        }
+        out += '</ul>';
+        document.getElementById('normal').innerHTML = out;
+        var saferesults = done.safe.ysearchresponse.resultset_web;
+        var out = '<ul>';
+        for(var i=0;i<saferesults.length;i++){
+          safe[saferesults[i].clickurl] = true;
+          var cur = saferesults[i];
+          out += '<li><a href="' + cur.clickurl +'">' +
+                 cur.title + '</a><p>' + cur.abstract + 
+                 '</p><p>(' + cur.dispurl + ')</p></li>';
+        }
+        out += '</ul>';
+        document.getElementById('safe').innerHTML = out;
+        var unsafe = saferesults.concat(results);
+        var out = '<ul>';
+        for(var i=0;i<unsafe.length;i++){
+          if(safe[unsafe[i].clickurl] !== true){
+            var cur = unsafe[i];
+            out += '<li><a href="' + cur.clickurl +'">' +
+                   cur.title + '</a><p>' + cur.abstract + 
+                   '</p><p>(' + cur.dispurl + ')</p></li>';
+          }
+        }
+        out += '</ul>';
+        document.getElementById('unsafe').innerHTML = out;
+      }
+    }
+    return{
+      safe:safe,
+      normal:normal
+    }
+  }();
+  
+  
+</script>
+</body>
+</html>

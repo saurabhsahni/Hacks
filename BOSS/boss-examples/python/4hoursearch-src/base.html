@@ -1,0 +1,35 @@
+{% comment %}
+# Copyright (c) 2008 Yahoo! Inc. All rights reserved.
+# Licensed under the Yahoo! Search BOSS Terms of Use
+# (http://info.yahoo.com/legal/us/yahoo/search/bosstos/bosstos-2317.html)
+{% endcomment %}
+<html>
+<head>
+    {% block title %}
+    <title>4hoursearch</title>
+    {% endblock %}
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/fonts/fonts-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/grids/grids-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css">
+    <!-- js -->
+    <script type="text/javascript" src="http://yui.yahooapis.com/combo?2.5.2/build/utilities/utilities.js&2.5.2/build/autocomplete/autocomplete-min.js&2.5.2/build/button/button-min.js&2.5.2/build/logger/logger-min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/4hoursearch.css"/>
+    {% block head %}
+    {% endblock %}
+</head>
+<body class="yui-skin-sam" onload="document.getElementById('myInput').focus();">
+{% block body %}
+{% endblock %}
+<script type="text/javascript" src="js/autocomplete.js"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2479388-7");
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

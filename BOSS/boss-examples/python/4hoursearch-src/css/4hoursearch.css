@@ -1,0 +1,105 @@
+/*
+ Copyright (c) 2008 Yahoo! Inc. All rights reserved.
+ Licensed under the Yahoo! Search BOSS Terms of Use
+ (http://info.yahoo.com/legal/us/yahoo/search/bosstos/bosstos-2317.html)
+*/
+
+#searchbutton {
+    float: left;
+    margin-left: 310px;
+}
+#myAutoComplete {
+    width: 300px;
+}
+#myInput {
+    font-size: larger;
+}
+.clear {
+    clear: both;
+}
+
+img {
+    border: none;
+}
+.resultimage {
+    float: right;
+	padding-top: 15px;
+}
+#totalhits {
+    float: right;
+}
+
+
+
+body {
+background-color: #F5F4EE;
+}
+
+.tabs {
+	padding-top: 15px;
+}
+
+.tab {
+font-size: 11px;
+font-weight: bold;
+padding: 5px 10px 5px 10px;
+background-color: #1B617A;
+float: left;
+margin-right: 1px;
+}
+
+#totalhits {
+	float: right;
+	color: #FFFFFF;
+}
+
+.sel {
+background-color: #F26DAD;
+}
+
+.tabs a {text-decoration: none;}
+a:link .tab {text-decoration: none; color: #FFFFFF}
+a:visited .tab {text-decoration: none; color: #FFFFFF}
+a:hover .tab {text-decoration: none; color: #FFFFFF; background-color: #C44582}
+a:active .tab {color: #FFFFFF; background-color: #F26DAD}
+
+.result {
+border: solid 0px purple;
+padding-top: 17px;
+padding-bottom: 17px;
+border-bottom: solid 1px #DEDAD0;
+}
+
+.t {
+border: solid 0px green;
+font-size: 14px;
+margin-bottom: -10px;
+margin-top: 0px;
+}
+
+.t a:link {text-decoration: none; color: #0089BD}
+.t a:visited {text-decoration: none; color: #1B617A}
+.t a:hover {text-decoration: underline; color: #0089BD}
+.t a:active {color: #1B617A}
+
+.result p {
+border: solid 0px red;
+font-size: 12px;
+margin-bottom: 3px;
+color: #1A1A1A;
+}
+
+.url {
+border: solid 0px blue;
+font-size: 13px;
+color: #94866E;
+text-decoration: none;
+}
+
+.url b {
+font-weight: normal;
+}
+
+#totalhits {
+background-color: #5E8391;
+}

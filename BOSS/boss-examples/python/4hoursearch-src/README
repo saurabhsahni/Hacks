@@ -1,0 +1,16 @@
+(See the LICENSE file for the terms under which this package is distributed)
+
+In order to deploy your own search site:
+1) Go to http://developer.yahoo.com/wsregapp/ and get a BOSS APPID
+2) Edit the config.json with your appid and email address
+3) Get an account on Google App Engine
+4) Create a new application
+5) Edit the app.yaml to point to this application
+6) appcfg.py update .
+
+You should now have this search site running.
+
+Coding: Sam Pullara (sam@sampullara.com, http://www.javarants.com)
+Design: Sam Lind (http://sam.besigner.com)
+Search: Yahoo! BOSS, Yahoo! GLUE
+Hosting: Google (thanks!)

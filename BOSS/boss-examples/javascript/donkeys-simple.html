@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+ "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Donkeys on the web!</title>
+   <link rel="stylesheet" href="http://yui.yahooapis.com/2.5.1/build/reset-fonts-grids/reset-fonts-grids.css" type="text/css">
+   <style type="text/css">
+      html,body{
+       background:#000;color:#ccc;
+      }
+      h1{
+        font-family:Futura,Helvetica,Arial,Sans-Serif;
+        font-size:300%;
+        padding:.5em 0;
+        color:#393;
+      }
+      h2{
+        font-family:Futura,Helvetica,Arial,Sans-Serif;
+        font-size:120%;
+        padding:.5em;
+        color:#fff;
+        background:#030;
+        border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+      }
+      form{
+        margin:1em 0;
+        padding:1em;
+        color:#fff;
+        background:#393;
+        border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;
+      }
+      #searchlink a{
+        font-size:200%;
+        color:#fff;
+      }
+      #bd{
+        font-size:115%;
+      }
+      #searchlink{
+        padding-bottom:2em;
+      }
+      form div{
+        padding:5px 0;font-weight:bold;
+      }
+      #ft a{
+        color:#fff;
+      }
+      li, #images li,#news li{
+        padding:.5em 0;
+      }
+      #ft{
+        margin-top:3em;
+      }
+      img{
+        padding:.5em;
+        margin:10px auto;
+        display:block;
+      }
+      li p{
+        color:#ccc;
+        font-size:100%;
+      }
+      #images li{
+        position:relative;
+        overflow:auto;
+      }
+      li a{
+        display:block;
+        padding-bottom:.2em;
+        font-size:115%;
+        color:#3c3;
+      }
+      ul{overflow:hidden;}
+   </style>
+   <script type="text/javascript" src="http://yui.yahooapis.com/3.0.0pr1/build/yui/yui-min.js"></script>
+</head>
+<body>
+<div id="doc2">
+   <div id="hd"><h1>Show me the donkeys!</h1></div>
+   <div id="bd">
+     <div id="searchresults"></div>
+      <script type="text/javascript" charset="utf-8">
+        function founddonkeys(o){
+          var donkeys = o.ysearchresponse.resultset_web;
+          var results = document.createElement('ul');
+          for(var i=0,j=donkeys.length;i<j;i++){
+            var item = document.createElement('li');
+            var link = document.createElement('a');
+            var abstract = document.createElement('p');
+            link.setAttribute('href',donkeys[i].clickurl);
+            link.innerHTML = donkeys[i].title;
+            item.appendChild(link);
+            abstract.innerHTML = donkeys[i].abstract;
+            item.appendChild(abstract);
+            results.appendChild(item);
+          }
+          document.getElementById('searchresults').appendChild(results);
+        }
+      </script>
+      <script type="text/javascript" charset="utf-8" src="http://boss.yahooapis.com/ysearch/web/v1/donkeys?format=json&callback=founddonkeys&appid=TX6b4XHV34EnPXW0sYEr51hP1pn5O8KAGs.LQSXer1Z7RmmVrZouz5SvyXkWsVk-"></script>
+   </div>
+   <div id="ft"><p>Written by <a href="http://wait-till-i.com">Chris Heilmann</a>, powered by <a href="http://developer.yahoo.com/search/boss/">BOSS</a> and <a href="http://developer.yahoo.com/yui/3">YUI3</a>.</p><p>This is not an official Yahoo! site and not endorsed by the company.</p></div>
+</div>
+</body>
+</html>

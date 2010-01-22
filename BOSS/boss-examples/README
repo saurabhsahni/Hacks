@@ -1,0 +1,20 @@
+Yahoo! BOSS Search examples
+BOSS documentation is available at http://developer.yahoo.com/search/boss/boss_guide/
+
+About the examples
+
+Javascript:
+ Source code for searching BOSS through javascript by Chris Heilmann
+
+PHP:
+ Site search example by by Marco Vitanza
+
+Python: 
+ Source code for www.4hoursearch.com by Sam Pullara
+ Uses appengine and BOSS Mashup framework
+
+Javascript Wrapper:
+ A wrapper library for Yahoo! BOSS by Chris Heilmann
+ http://icant.co.uk/sandbox/yboss/
+
+
