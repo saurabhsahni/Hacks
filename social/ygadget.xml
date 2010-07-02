@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module xmlns:yap="http://www.yahoo.com/ns/yap">
+
+  <ModulePrefs title="Hindi Updates"
+               description="Updates from your friends in Hindi"
+               category="Information">
+    <Icon>http://hacks.saurabhsahni.com/yap/social/vitality_bigger.gif</Icon>
+    <Locale lang="en" country="us"/>
+    <Require feature="yap.feature.classic"/>
+    <Require feature="opensocial-0.8"/>
+    <yap:Extension name="yap.gadgets.ShortDescription">Updates from your friends in Hindi</yap:Extension>
+    <yap:Extension name="yap.gadgets.ApplicationIconUrl">http://hacks.saurabhsahni.com/yap/social/vitality_bigger.gif</yap:Extension>
+    <yap:Extension name="yap.gadgets.YahooComIconUrl">http://hacks.saurabhsahni.com/yap/social/vitality_bigger.gif</yap:Extension>
+    <yap:Extension name="yap.gadgets.ScreenshotUrl">http://hacks.saurabhsahni.com/yap/social/vitality_bigger.gif</yap:Extension>
+  </ModulePrefs>
+
+  <Content type="html" view="YahooSmallView, default" >
+   <![CDATA[ Hi,        <yml:user-badge uid="viewer" linked="true" width="55" 
+         reflexive="false" useyou="false" capitalize="true" /> 
+<yml:a view="YahooFullView">Click here to view updates</yml:a>
+   ]]>  
+   </Content>
+
+  <Content type="html" view="YahooFullView, canvas" href="http://hacks.saurabhsahni.com/yap/social/updates.php">
+  </Content>
+
+  <!-- The content of this CDATA will render if no other content sections are applicable. -->
+  <Content type="html">
+    <![CDATA[
+        Hello World, my name is <yml:name uid="viewer" linked="true" capitalize="true"/>.    
+    ]]>
+  </Content>
+</Module>
