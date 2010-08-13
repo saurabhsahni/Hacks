@@ -1808,6 +1808,7 @@ class OAuthClient {
         $request["timeout"] : $this->defaultTimeout;
 
         $ch = curl_init($requestUrl);
+        curl_setopt($ch,  CURLOPT_SSL_VERIFYPEER, FALSE); //Required for joyent hosting
         curl_setopt($ch, CURLOPT_TIMEOUT, $requestTimeout);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
