@@ -1,0 +1,12 @@
+application: ask-boss
+version: 8
+runtime: python
+api_version: 1
+
+handlers:
+- url: /qa
+  script: main.py
+- url: /feedback
+  script: feedback.py
+- url: .*
+  script: main.py

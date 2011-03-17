@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module xmlns:yap="http://www.yahoo.com/ns/yap">
+
+  <ModulePrefs title="Updatesville"
+               description="Updatesville makes sharing updates on Y@hoo! fun. Unlock badges on reaching milestones and compete with your friends. "
+               category="Information">
+    <Icon>http://hacks.saurabhsahni.com/updatesville/vitality_bigger2.gif</Icon>
+    <Locale lang="en" country="us"/>
+<Require feature="yap.feature.classic"/>
+<Require feature="opensocial-0.8"/>
+    <yap:Extension name="yap.gadgets.ShortDescription">Updatesville makes sharing updates on Y@hoo! fun. Unlock badges on reaching milestones and compete with your friends. </yap:Extension>
+    <yap:Extension name="yap.gadgets.ApplicationIconUrl">http://hacks.saurabhsahni.com/updatesville/vitality_bigger2.gif</yap:Extension>
+    <yap:Extension name="yap.gadgets.YahooComIconUrl">http://hacks.saurabhsahni.com/updatesville/vitality_bigger2.gif</yap:Extension>
+    <yap:Extension name="yap.gadgets.ScreenshotUrl">http://img.skitch.com/20100712-nrhayu65qth4ecc1f7ehiei912.png</yap:Extension>
+  </ModulePrefs>
+
+  <Content type="html" view="YahooSmallView, default" >
+   <![CDATA[ Hi,        <yml:user-badge uid="viewer" linked="true" width="55" 
+         reflexive="false" useyou="false" capitalize="true" /> Updatesville works in Full View only currently.
+<yml:a view="YahooFullView">Click here to see your updatesville score and badges</yml:a>
+   ]]>  
+   </Content>
+
+  <Content type="html" view="YahooFullView, canvas" href="http://hacks.saurabhsahni.com/updatesville/updates.php">
+  </Content>
+
+  <!-- The content of this CDATA will render if no other content sections are applicable. -->
+  <Content type="html">
+    <![CDATA[
+Hi,        <yml:user-badge uid="viewer" linked="true" width="55" 
+         reflexive="false" useyou="false" capitalize="true" /> Updatesville works in Full View only currently.
+<yml:a view="YahooFullView">Click here to see your updatesville score and badges</yml:a>
+    ]]>
+  </Content>
+</Module>
