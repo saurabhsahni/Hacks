@@ -1,17 +1,9 @@
+askBoss retrieves images to questions posed in natural language. askBoss attempts to enhance image results for queries around factual question answering. It uses Yahoo Boss (Search) APIs (http://developer.yahoo.com/search/boss/) through Boss Mashup framework (http://developer.yahoo.com/search/boss/mashup.html) and is deployed on Google App Engine.
 
-# Vik Singh (viksi@yahoo-inc.com)
+This hack is an extension of Vik Singh’s qna service (http://bossy.appspot.com/), which finds answer (http://zooie.wordpress.com/2008/08/04/yahoo-boss-google-app-engine-integrated/) using the popular phrases in the top search results for a query. I do image search for the best answers and blend them with the regular image search results. The hack is a basic prototype and natural language image search gets triggered only for questions (queries including who/what/which).
 
-You should have Google App Engine (GAE) already installed and configured
-Save the qa.zip file in your gae directory (or wherever)
-Unzip it, cd into the qa directory
+Try askBoss: http://ask-boss.appspot.com
 
-In the config file supply your BOSS appid
-In the app.yaml file change the application name to your Google App Engine name
 
-Then you're done
+To start edit config file and add your appid there. You can get a new appid for BOSS v1 here: https://developer.apps.yahoo.com/wsregapp/
 
-Should be able to cd out one level and run
-
-appcfg.py update qa/
-
-to upload the project to GAE
