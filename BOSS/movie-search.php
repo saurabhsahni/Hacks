@@ -28,11 +28,36 @@ echo $query . '" />   <input type="submit" value="Go" /></form>';
 if(!empty($_GET['q']))
 {
 	echo '<hr />';
-	$url="http://boss.yahooapis.com/ysearch/web/v1/".urlencode($_GET['q'])."?appid=ISGgKXfV34GhV6BXecPEg24VLNQCEpQ7df_.jdBruuJPirNxNsjpRIXKZbeC2hCbjJHDNQ--&sites=imdb.com,movies.yahoo.com,indiatimes.com&format=xml";
-	$xml=simplexml_load_file($url);
-	foreach ($xml->resultset_web->result as $item) {
-	 echo '<div class="result"><a href="'.$item->url.'">'.$item->title.'</a><br/>'.$item->abstract.'<br><font color="green">'.$item->dispurl.'</font></div>';
+	$url='select * from boss.search where q="The Artist"  and sites="imdb.com,movies.yahoo.com,indiatimes.com" and ck="dj0yJmk9YWF3ODdGNWZPYjg2JmQ9WVdrOWVsWlZNRk5KTldFbWNHbzlNVEEyTURFNU1qWXkmcz1jb25zdW1lcnNlY3JldCZ4PTUz" and secret="a3d93853ba3bad8a99a175e8ffa90a702cd08cfa"';
+	$res=getResultFromYQL($url);
+	foreach ($res->query->results->bossresponse->web->results->result as $item) {
+	 echo '<div class="result"><a href="'.$item->url.'">'.$item->title->content.'</a><br/>'.$item->abstract->content.'<br><font color="green">'.$item->dispurl->content.'</font></div>';
 	}
+
+}
+
+
+/**
+ * Function to get results from YQL
+ *
+ * @param String $yql_query - The YQL Query
+ * @param String $env - Environment in which the YQL Query should be executed. (Optional)
+ *
+ * @return object response
+ */
+function getResultFromYQL($yql_query) {
+    $yql_base_url = "http://query.yahooapis.com/v1/public/yql";
+    $yql_query_url = $yql_base_url . "?q=" . urlencode($yql_query);
+    $yql_query_url .= "&format=json&env=store://datatables.org/alltableswithkeys";
+
+    $session = curl_init($yql_query_url);
+    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($session, CURLOPT_PROXY, '10.3.100.209:8080');
+
+    $json = curl_exec($session);
+    curl_close($session);
+
+    return json_decode($json);
 }
 ?>
 
