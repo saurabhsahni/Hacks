@@ -1,6 +1,6 @@
 ## Hacks 0.01
 
-My tiny hacks now
+My tiny hacks
 
 More: http://www.saurabhsahni.com/category/hacks/
 
